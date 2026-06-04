@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Content That Actually Generates Revenue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    :root{
+        --paper:#f3efe4;
+        --paper-2:#ece6d6;
+        --ink:#16130d;
+        --ink-soft:#4a463c;
+        --accent:#1a8f4c;
+        --accent-dark:#137a40;
+        --accent-lite:#5fd98c;
+        --accent-ink:#f4fbf5;
+        --line:#16130d;
+        --radius:2px;
+        --maxw:1080px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+        font-family:"Hanken Grotesk",sans-serif;
+        background:var(--paper);
+        color:var(--ink);
+        line-height:1.55;
+        -webkit-font-smoothing:antialiased;
+        position:relative;
+        overflow-x:hidden;
+    }
+
+    body::before{
+        content:"";
+        position:fixed;inset:0;
+        pointer-events:none;z-index:9999;
+        opacity:.04;mix-blend-mode:multiply;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+    .eyebrow{
+        font-family:"JetBrains Mono",monospace;
+        font-size:12px;font-weight:500;
+        letter-spacing:.22em;text-transform:uppercase;
+        color:var(--accent);
+        display:inline-flex;align-items:center;gap:10px;
+    }
+    .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+
+    h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;line-height:1.02;letter-spacing:-.02em}
+
+    .btn{
+        font-family:"JetBrains Mono",monospace;
+        font-size:14px;font-weight:500;letter-spacing:.04em;
+        background:var(--accent);color:var(--accent-ink);
+        border:1.5px solid var(--ink);
+        padding:17px 34px;border-radius:var(--radius);
+        cursor:pointer;text-decoration:none;display:inline-block;
+        text-transform:uppercase;
+        box-shadow:5px 5px 0 var(--ink);
+        transition:transform .12s ease, box-shadow .12s ease, background .2s ease;
+    }
+    .btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);background:var(--accent-dark)}
+    .btn:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--ink)}
+
+    /* ---------- TOPBAR ---------- */
+    .topbar{
+        border-bottom:1.5px solid var(--line);
+        display:flex;justify-content:space-between;align-items:center;
+        padding:18px 0;
+        font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.04em;
+    }
+    .topbar .brand{font-weight:700;letter-spacing:.02em}
+    .topbar .meta{color:var(--ink-soft)}
+
+    /* ---------- HERO ---------- */
+    .hero{padding:74px 0 56px;border-bottom:1.5px solid var(--line)}
+    .hero h1{font-size:clamp(44px,7.6vw,86px);font-weight:800;max-width:14ch;margin:26px 0 0}
+    .hero h1 .mark{background:linear-gradient(transparent 62%,rgba(26,143,76,.28) 0);padding:0 .04em}
+    .hero .sub{font-size:clamp(18px,2.3vw,23px);color:var(--ink-soft);max-width:46ch;margin:28px 0 38px;font-weight:400}
+    .hero-actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+    .hero-actions .note{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em}
+
+    /* ---------- STATS ---------- */
+    .stats{border-bottom:1.5px solid var(--line);background:var(--paper-2)}
+    .stats .grid{display:grid;grid-template-columns:repeat(3,1fr)}
+    .stat{padding:46px 28px;border-right:1.5px solid var(--line)}
+    .stat:last-child{border-right:none}
+    .stat .num{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(48px,6.5vw,72px);line-height:.92;letter-spacing:-.03em}
+    .stat .lbl{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft);margin-top:14px;letter-spacing:.02em;max-width:24ch}
+
+    /* ---------- SECTION SCAFFOLD ---------- */
+    section.block{padding:84px 0;border-bottom:1.5px solid var(--line)}
+    .sec-head{max-width:32ch;margin-bottom:48px}
+    .sec-head h2{font-size:clamp(30px,4.4vw,46px);font-weight:700;margin-top:20px}
+    .sec-head .sub{color:var(--ink-soft);font-size:18px;margin-top:16px;max-width:52ch}
+
+    /* ---------- SOUND FAMILIAR (problem) ---------- */
+    .list{list-style:none;display:grid;gap:0;border-top:1.5px solid var(--line)}
+    .list li{display:flex;gap:20px;align-items:flex-start;padding:22px 4px;border-bottom:1px solid rgba(22,19,13,.16);font-size:clamp(17px,1.9vw,20px)}
+    .list li .ic{font-family:"JetBrains Mono",monospace;font-weight:700;flex:0 0 auto;width:30px;text-align:center;line-height:1.45}
+    .problem .ic{color:var(--accent)}
+    .problem .closer{margin-top:34px;font-family:"Bricolage Grotesque",sans-serif;font-weight:500;font-size:clamp(20px,2.6vw,26px);max-width:24ch}
+    .problem .closer b{color:var(--accent)}
+
+    /* ---------- CASE STUDIES (proof) ---------- */
+    .proof{background:var(--paper-2)}
+    .cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .cs-card{background:var(--paper);border:1.5px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column}
+    .cs-tag{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:10px}
+    .cs-tag b{color:var(--accent)}
+    .cs-card h3{font-size:clamp(22px,2.8vw,27px);font-weight:700;margin:16px 0 22px;max-width:18ch}
+    .cs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;border-top:1px solid rgba(22,19,13,.15);border-bottom:1px solid rgba(22,19,13,.15);padding:20px 0;margin-bottom:20px}
+    .cs-stats .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;line-height:1}
+    .cs-stats .l{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-soft);letter-spacing:.04em;margin-top:8px;text-transform:uppercase}
+    .cs-img{border:1.5px dashed rgba(22,19,13,.35);border-radius:var(--radius);min-height:150px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.04em;background:repeating-linear-gradient(45deg,transparent,transparent 9px,rgba(22,19,13,.03) 9px,rgba(22,19,13,.03) 18px);margin-bottom:18px;padding:18px}
+    .cs-who{font-family:"JetBrains Mono",monospace;font-size:12.5px;margin-top:auto}
+    .cs-who b{display:block;font-weight:700;color:var(--ink)}
+    .cs-who span{color:var(--accent)}
+
+    /* ---------- WHAT YOU GET ---------- */
+    .get-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1.5px solid var(--line);border-left:1.5px solid var(--line)}
+    .get-grid li{list-style:none;display:flex;gap:16px;align-items:flex-start;padding:22px 24px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);font-size:16.5px}
+    .get-grid li .ic{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:12px;display:inline-flex;align-items:center;justify-content:center;margin-top:3px}
+
+    /* ---------- HONEST COMPARISON ---------- */
+    .cmp-scroll{overflow-x:auto;border:1.5px solid var(--line);border-radius:var(--radius)}
+    table.cmp{border-collapse:collapse;width:100%;min-width:680px;font-size:14.5px}
+    table.cmp th,table.cmp td{padding:18px 18px;text-align:left;border-bottom:1px solid rgba(22,19,13,.15);vertical-align:top}
+    table.cmp thead th{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:16px;border-bottom:1.5px solid var(--line)}
+    table.cmp thead th small{display:block;font-family:"JetBrains Mono",monospace;font-weight:400;font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-top:6px;text-transform:uppercase}
+    table.cmp tbody th{font-family:"JetBrains Mono",monospace;font-weight:500;font-size:13px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;width:200px}
+    .col-us{background:rgba(26,143,76,.1);border-left:1.5px solid var(--accent);border-right:1.5px solid var(--accent)}
+    thead .col-us{border-top:1.5px solid var(--accent)}
+    .yes{color:var(--accent);font-weight:700}
+    .no{color:var(--ink-soft)}
+    .cmp-note{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-soft);margin-top:18px;letter-spacing:.02em}
+
+    /* ---------- HOW IT WORKS ---------- */
+    .how{background:var(--ink);color:var(--paper)}
+    .how .eyebrow{color:var(--accent-lite)}
+    .how .eyebrow::before{background:var(--accent-lite)}
+    .how .sec-head h2{color:var(--paper)}
+    .how .sec-head .sub{color:rgba(243,239,228,.7)}
+    .how-row{display:grid;grid-template-columns:90px 1fr;gap:28px;align-items:start;padding:30px 0;border-top:1px solid rgba(243,239,228,.16)}
+    .how-row:first-of-type{border-top:1.5px solid rgba(243,239,228,.3)}
+    .how-row .step{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:46px;color:var(--accent-lite);line-height:.9;letter-spacing:-.03em}
+    .how-row h3{font-size:clamp(20px,2.6vw,26px);font-weight:700;color:var(--paper);margin-bottom:8px}
+    .how-row p{color:rgba(243,239,228,.72);max-width:56ch;font-size:16.5px}
+
+    /* ---------- OPERATOR ---------- */
+    .op-grid{display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:start}
+    .op-photo{border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:7px 7px 0 var(--accent);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-soft);letter-spacing:.04em;background:repeating-linear-gradient(45deg,var(--paper-2),var(--paper-2) 11px,rgba(22,19,13,.04) 11px,rgba(22,19,13,.04) 22px);padding:24px}
+    .op-text p{font-size:17px;color:var(--ink-soft);margin-bottom:18px;max-width:60ch}
+    .op-text p:first-of-type{margin-top:18px}
+    .op-text .btn{margin-top:14px}
+
+    /* ---------- WHO THIS IS FOR ---------- */
+    .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .who-col{border:1.5px solid var(--line);border-radius:var(--radius);padding:32px}
+    .who-col.for{background:rgba(26,143,76,.08);box-shadow:6px 6px 0 var(--accent)}
+    .who-col.not{background:var(--paper-2)}
+    .who-col h3{font-size:22px;font-weight:700;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+    .who-col h3 .tick{font-family:"JetBrains Mono",monospace}
+    .who-col.for h3 .tick{color:var(--accent)}
+    .who-col.not h3 .tick{color:var(--ink-soft)}
+    .who-col ul{list-style:none;display:grid;gap:0}
+    .who-col li{padding:14px 0 14px 28px;position:relative;border-bottom:1px solid rgba(22,19,13,.14);font-size:16px}
+    .who-col li:last-child{border-bottom:none}
+    .who-col.for li::before{content:"+";position:absolute;left:0;color:var(--accent);font-family:"JetBrains Mono",monospace;font-weight:700}
+    .who-col.not li::before{content:"\2212";position:absolute;left:0;color:var(--ink-soft);font-family:"JetBrains Mono",monospace;font-weight:700}
+
+    /* ---------- OFFER ---------- */
+    .offer{text-align:center}
+    .offer .sec-head{margin:0 auto 50px;text-align:center}
+    .offer-card{max-width:760px;margin:0 auto;text-align:left;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:9px 9px 0 var(--accent);overflow:hidden}
+    .offer-top{padding:40px 44px 30px;border-bottom:1px dashed rgba(243,239,228,.3);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+    .offer-top h3{font-size:clamp(26px,3.4vw,36px);font-weight:700;color:var(--paper);max-width:16ch;line-height:1.05}
+    .offer-top .badge{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lite);border:1px solid var(--accent-lite);padding:6px 12px;border-radius:var(--radius);white-space:nowrap}
+    .offer-body{padding:34px 44px 44px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+    .offer-body .price{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(46px,7vw,66px);line-height:.9;letter-spacing:-.03em}
+    .offer-body .price small{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,239,228,.55);margin-top:14px}
+    .offer-incl{list-style:none}
+    .offer-incl li{padding:11px 0 11px 26px;position:relative;font-size:16px;border-bottom:1px solid rgba(243,239,228,.12);color:rgba(243,239,228,.92)}
+    .offer-incl li:last-child{border-bottom:none}
+    .offer-incl li::before{content:"\2192";position:absolute;left:0;color:var(--accent-lite);font-weight:700}
+    .guarantee{grid-column:1/-1;font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:.02em;background:rgba(26,143,76,.16);border:1px solid rgba(95,217,140,.45);padding:16px 18px;border-radius:var(--radius);color:#d6f5e2}
+    .guarantee b{color:#fff}
+    .offer-cta{grid-column:1/-1}
+    .offer-cta .btn{width:100%;text-align:center;box-shadow:5px 5px 0 var(--paper)}
+    .offer-cta .btn:hover{box-shadow:2px 2px 0 var(--paper)}
+
+    /* ---------- TESTIMONIALS ---------- */
+    .t-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1.5px solid var(--line);border-left:1.5px solid var(--line)}
+    .t-card{padding:34px 30px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
+    .t-card .stars{color:var(--accent);letter-spacing:3px;font-size:15px;margin-bottom:18px}
+    .t-card .quote{font-size:17px;line-height:1.5;margin-bottom:24px}
+    .t-card .who{font-family:"JetBrains Mono",monospace;font-size:13px}
+    .t-card .who b{display:block;font-weight:700;letter-spacing:.02em}
+    .t-card .who span{color:var(--ink-soft)}
+
+    /* ---------- FAQ ---------- */
+    .faq-list{border-top:1.5px solid var(--line)}
+    .faq-item{border-bottom:1.5px solid var(--line)}
+    .faq-q{width:100%;background:none;border:none;cursor:pointer;text-align:left;font-family:"Bricolage Grotesque",sans-serif;font-weight:500;font-size:clamp(18px,2.2vw,22px);color:var(--ink);padding:26px 4px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+    .faq-q .sign{font-family:"JetBrains Mono",monospace;font-size:24px;color:var(--accent);flex:0 0 auto;transition:transform .25s ease}
+    .faq-q[aria-expanded="true"] .sign{transform:rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+    .faq-a p{padding:0 4px 28px;max-width:62ch;color:var(--ink-soft);font-size:17px}
+
+    /* ---------- FOOTER CTA ---------- */
+    .footer-cta{background:var(--ink);color:var(--paper);text-align:center;padding:96px 0;border-bottom:none}
+    .footer-cta h2{font-size:clamp(34px,5.5vw,60px);font-weight:800;color:var(--paper);max-width:18ch;margin:0 auto 20px}
+    .footer-cta p{color:rgba(243,239,228,.7);max-width:48ch;margin:0 auto 38px;font-size:18px}
+    .footer-cta .btn{box-shadow:5px 5px 0 var(--paper)}
+    .footer-cta .btn:hover{box-shadow:2px 2px 0 var(--paper)}
+    .footer-foot{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.04em;color:rgba(243,239,228,.45);margin-top:54px}
+
+    /* ---------- reveal ---------- */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+
+    /* ---------- responsive ---------- */
+    @media(max-width:820px){
+        .op-grid{grid-template-columns:1fr;gap:30px}
+        .op-photo{max-width:300px}
+    }
+    @media(max-width:780px){
+        .stats .grid{grid-template-columns:1fr}
+        .stat{border-right:none;border-bottom:1.5px solid var(--line)}
+        .stat:last-child{border-bottom:none}
+        .cs-grid{grid-template-columns:1fr}
+        .get-grid{grid-template-columns:1fr;border-left:none}
+        .get-grid li{border-right:none}
+        .who-grid{grid-template-columns:1fr}
+        .offer-body{grid-template-columns:1fr;gap:26px}
+        .offer-top,.offer-body{padding-left:26px;padding-right:26px}
+        .t-grid{grid-template-columns:1fr;border-left:none}
+        .t-card{border-right:none}
+        .how-row{grid-template-columns:64px 1fr;gap:18px}
+        .how-row .step{font-size:34px}
+        .topbar .meta{display:none}
+    }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+    <div class="topbar">
+        <span class="brand">DEMAND ACQUISITION</span>
+        <span class="meta">B2B &middot; AI-NATIVE GTM</span>
+    </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="wrap">
+        <span class="eyebrow reveal">For B2B SaaS and agency founders</span>
+        <h1 class="reveal">LinkedIn content-first machine that adds <span class="mark">$15K&ndash;30K MRR</span> in 90 days</h1>
+        <p class="sub reveal">Without dealing with plummeting 1% outbound reply rates. We write your posts, run your DMs, and book 20&ndash;30 qualified sales calls onto your calendar every month. Done-for-you.</p>
+        <div class="hero-actions reveal">
+            <a href="#offer" class="btn">Get your free audit</a>
+            <span class="note">No retainer to start &middot; Results-guaranteed</span>
+        </div>
+    </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+    <div class="wrap">
+        <div class="grid">
+            <div class="stat reveal"><div class="num">300+</div><div class="lbl">Leads from a single LinkedIn post</div></div>
+            <div class="stat reveal"><div class="num">$2M</div><div class="lbl">Revenue generated from content</div></div>
+            <div class="stat reveal"><div class="num">$450K</div><div class="lbl">Pipeline generated in 30 days</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- SOUND FAMILIAR -->
+<section class="block problem">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">Sound familiar?</span>
+            <h2>If any of this sounds like you, keep reading</h2>
+        </div>
+        <ul class="list reveal">
+            <li><span class="ic">&#10007;</span><span>You're tired of cold outbound campaigns where reply rates sit below 1% and your SDR spend keeps burning cash.</span></li>
+            <li><span class="ic">&#10007;</span><span>Paid ads are far more expensive than they were two years ago &mdash; and the lead quality keeps dropping.</span></li>
+            <li><span class="ic">&#10007;</span><span>You know LinkedIn inbound is the answer, but you don't have time to write posts, run DMs, and chase leads on top of running the business.</span></li>
+            <li><span class="ic">&#10007;</span><span>You hired an agency before. They sent generic, overseas-written posts. Your pipeline stayed empty.</span></li>
+            <li><span class="ic">&#10007;</span><span>Your posts get engagement but zero qualified leads &mdash; and the ones you do get were never pre-qualified, so they don't convert.</span></li>
+        </ul>
+        <p class="closer reveal">There's a better way. And it's working for <b>100+ B2B founders</b> right now.</p>
+    </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="block proof">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">Proof, not promises</span>
+            <h2>Best results in the game</h2>
+            <p class="sub">Receipts pulled straight from client LinkedIn analytics, booking dashboards, and viral posts.</p>
+        </div>
+        <div class="cs-grid">
+            <div class="cs-card reveal">
+                <div class="cs-tag"><b>Case Study / 01</b><span>[ Industry ]</span></div>
+                <h3>[ Headline result goes here ]</h3>
+                <div class="cs-stats">
+                    <div><div class="n">[00]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[$0K]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[0M+]</div><div class="l">[ Metric ]</div></div>
+                </div>
+                <div class="cs-img">[ Drop screenshot / proof image here ]</div>
+                <div class="cs-who"><b>[ Client name ]</b><span>[ linkedin.com/in/handle ]</span></div>
+            </div>
+            <div class="cs-card reveal">
+                <div class="cs-tag"><b>Case Study / 02</b><span>[ Industry ]</span></div>
+                <h3>[ Headline result goes here ]</h3>
+                <div class="cs-stats">
+                    <div><div class="n">[00]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[$0K]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[0K+]</div><div class="l">[ Metric ]</div></div>
+                </div>
+                <div class="cs-img">[ Drop screenshot / proof image here ]</div>
+                <div class="cs-who"><b>[ Client name ]</b><span>[ linkedin.com/in/handle ]</span></div>
+            </div>
+            <div class="cs-card reveal">
+                <div class="cs-tag"><b>Case Study / 03</b><span>[ Industry ]</span></div>
+                <h3>[ Headline result goes here ]</h3>
+                <div class="cs-stats">
+                    <div><div class="n">[0M+]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[00K]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[0-0]</div><div class="l">[ Metric ]</div></div>
+                </div>
+                <div class="cs-img">[ Drop screenshot / proof image here ]</div>
+                <div class="cs-who"><b>[ Client name ]</b><span>[ linkedin.com/in/handle ]</span></div>
+            </div>
+            <div class="cs-card reveal">
+                <div class="cs-tag"><b>Case Study / 04</b><span>[ Industry ]</span></div>
+                <h3>[ Headline result goes here ]</h3>
+                <div class="cs-stats">
+                    <div><div class="n">[$0K]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[0-0K]</div><div class="l">[ Metric ]</div></div>
+                    <div><div class="n">[00K+]</div><div class="l">[ Metric ]</div></div>
+                </div>
+                <div class="cs-img">[ Drop screenshot / proof image here ]</div>
+                <div class="cs-who"><b>[ Client name ]</b><span>[ linkedin.com/in/handle ]</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="block">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">Here's what you get</span>
+            <h2>One complete system. Done for you.</h2>
+            <p class="sub">An engagement that installs the entire inbound machine inside your business.</p>
+        </div>
+        <ul class="get-grid reveal">
+            <li><span class="ic">&#10003;</span><span>Full ICP, offer &amp; competitor positioning audit</span></li>
+            <li><span class="ic">&#10003;</span><span>Complete LinkedIn profile rebuild: banner, headline, About, Featured</span></li>
+            <li><span class="ic">&#10003;</span><span>Custom lead magnet engineered to convert profile views</span></li>
+            <li><span class="ic">&#10003;</span><span>3&ndash;5 done-for-you posts per week, written and scheduled</span></li>
+            <li><span class="ic">&#10003;</span><span>Daily strategic engagement on your behalf</span></li>
+            <li><span class="ic">&#10003;</span><span>DM playbook &amp; qualification scripts that book calls</span></li>
+            <li><span class="ic">&#10003;</span><span>Pre-call sequences, intake forms, post-call follow-up</span></li>
+            <li><span class="ic">&#10003;</span><span>Weekly performance review with a senior strategist</span></li>
+            <li><span class="ic">&#10003;</span><span>Direct Slack line to your strategist and operator</span></li>
+            <li><span class="ic">&#10003;</span><span>Monthly reporting on pipeline, calls booked, and revenue</span></li>
+        </ul>
+    </div>
+</section>
+
+<!-- HONEST COMPARISON -->
+<section class="block">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">The honest comparison</span>
+            <h2>Why not just hire a ghostwriter?</h2>
+            <p class="sub">We've watched founders try every shortcut. Here's how the math actually plays out.</p>
+        </div>
+        <div class="cmp-scroll reveal">
+            <table class="cmp">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="col-us">Demand Acquisition<small>Done-for-you</small></th>
+                        <th>Ghostwriter<small>$1&ndash;3K / mo</small></th>
+                        <th>In-house hire<small>$8&ndash;15K + equity</small></th>
+                        <th>DIY<small>Founder-led</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Time from you / week</th>
+                        <td class="col-us">~1 hr review</td>
+                        <td>3&ndash;5 hrs</td>
+                        <td>5&ndash;10 hrs managing</td>
+                        <td>15&ndash;20 hrs</td>
+                    </tr>
+                    <tr>
+                        <th>Strategy + ICP work</th>
+                        <td class="col-us"><span class="yes">&#10003;</span></td>
+                        <td class="no">sometimes</td>
+                        <td class="no">sometimes</td>
+                        <td class="no">&#10007;</td>
+                    </tr>
+                    <tr>
+                        <th>DM / inbound system</th>
+                        <td class="col-us"><span class="yes">&#10003;</span></td>
+                        <td class="no">&#10007;</td>
+                        <td class="no">&#10007;</td>
+                        <td class="no">&#10007;</td>
+                    </tr>
+                    <tr>
+                        <th>Senior writers on the account</th>
+                        <td class="col-us"><span class="yes">&#10003;</span></td>
+                        <td class="no">rarely</td>
+                        <td class="no">&#10007;</td>
+                        <td class="no">&#10007;</td>
+                    </tr>
+                    <tr>
+                        <th>Time to first booked calls</th>
+                        <td class="col-us">~30 days</td>
+                        <td>60&ndash;90 days</td>
+                        <td>90&ndash;120 days</td>
+                        <td>6+ months</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="cmp-note reveal">Pricing benchmarks pulled from publicly listed agency rates and average B2B content marketer salaries (US, 2025).</p>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="block how">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">How it works</span>
+            <h2>Five steps. One system. Done for you.</h2>
+            <p class="sub">The same playbook we run for every client, built to compound week over week.</p>
+        </div>
+        <div class="how-row reveal"><div class="step">01</div><div><h3>Content that builds trust</h3><p>We write 3&ndash;5 posts a week that make your buyer trust you before they ever DM.</p></div></div>
+        <div class="how-row reveal"><div class="step">02</div><div><h3>Profile that converts</h3><p>We rebuild your profile so visitors know what you do, who it's for, and how to book in ten seconds.</p></div></div>
+        <div class="how-row reveal"><div class="step">03</div><div><h3>DMs that book calls</h3><p>A simple 5-message flow turns commenters and profile views into qualified calls on your calendar.</p></div></div>
+        <div class="how-row reveal"><div class="step">04</div><div><h3>Daily engine, run by us</h3><p>We post, comment, and DM every day. You stay in your zone. We track what's working in one dashboard.</p></div></div>
+        <div class="how-row reveal"><div class="step">05</div><div><h3>Sales process that closes</h3><p>Pre-call nurture, structured calls, and follow-up cadences that turn warm calls into signed clients.</p></div></div>
+    </div>
+</section>
+
+<!-- MEET YOUR OPERATOR -->
+<section class="block">
+    <div class="wrap">
+        <div class="op-grid">
+            <div class="op-photo reveal">[ Your photo &mdash; replace with headshot ]</div>
+            <div class="op-text reveal">
+                <span class="eyebrow">Meet your operator</span>
+                <h2 style="font-size:clamp(28px,4vw,42px);font-weight:700;margin-top:20px">Built by a team that's done this before.</h2>
+                <p>I'm [ Your Name ]. I've spent the last [ X ] years getting B2B founders paid from LinkedIn &mdash; [ $X ] in tracked client revenue across [ X ] accounts, and [ add a credibility line: programs you've coached, brands you've written for, etc. ].</p>
+                <p>[ Company ] is the team I assembled to scale that work: senior writers, strategists, and DM operators who've built for some of the most respected personal brands in B2B SaaS, consulting, and venture. Every account is run by people who have already done this at the highest level.</p>
+                <p>Book the call and we'll tell you honestly whether we're the right team to put behind your name.</p>
+                <button class="btn" onclick="bookCall()">Book your free audit</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section class="block">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">Who this is for</span>
+            <h2>This isn't for everyone. On purpose.</h2>
+            <p class="sub">We turn down more accounts than we take. It keeps the work honest, the team focused, and the case studies real.</p>
+        </div>
+        <div class="who-grid">
+            <div class="who-col for reveal">
+                <h3><span class="tick">&#10003;</span> Built for</h3>
+                <ul>
+                    <li>B2B SaaS and agency founders doing $30K+ MRR ready to scale</li>
+                    <li>Operators who can take 20&ndash;30 sales calls per month</li>
+                    <li>Founders who want to own a category, not chase trends</li>
+                    <li>Teams ready to commit to a defined engagement window</li>
+                </ul>
+            </div>
+            <div class="who-col not reveal">
+                <h3><span class="tick">&#8722;</span> Not built for</h3>
+                <ul>
+                    <li>Pre-revenue founders without a validated offer</li>
+                    <li>B2C, e-commerce, or affiliate plays</li>
+                    <li>Founders who want to write every post personally</li>
+                    <li>Anyone shopping for viral hacks without a strategy</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OFFER -->
+<section class="block offer" id="offer">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">The offer</span>
+            <h2>The 30-Day LinkedIn Revenue Sprint</h2>
+        </div>
+        <div class="offer-card reveal">
+            <div class="offer-top">
+                <h3>Get 10+ qualified leads in 30 days</h3>
+                <span class="badge">Limited intake</span>
+            </div>
+            <div class="offer-body">
+                <div><div class="price">$1,997<small>One-time &middot; 30-day sprint</small></div></div>
+                <ul class="offer-incl">
+                    <li>4 optimized LinkedIn posts written for you</li>
+                    <li>Lead qualification framework</li>
+                    <li>2 sales coaching sessions (1-on-1 or group)</li>
+                    <li>Daily Slack support</li>
+                    <li>Complete content strategy audit</li>
+                </ul>
+                <div class="guarantee">&#10003; <b>Minimum 10 qualified leads</b> in 30 days &mdash; or your money back.</div>
+                <div class="offer-cta"><button class="btn" onclick="bookCall()">Start your sprint</button></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="block">
+    <div class="wrap">
+        <div class="sec-head reveal">
+            <span class="eyebrow">FAQ</span>
+            <h2>Questions, answered</h2>
+        </div>
+        <div class="faq-list reveal">
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">How is this different from hiring a content writer?<span class="sign">+</span></button>
+                <div class="faq-a"><p>Most content writers optimize for engagement and followers. We optimize for revenue &mdash; combining content strategy, lead qualification and sales coaching. You're not just getting posts; you're getting a complete system that turns posts into meetings and deals.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">What if we don't get 10 qualified leads?<span class="sign">+</span></button>
+                <div class="faq-a"><p>We guarantee 10+ qualified leads in 30 days. If we don't deliver, you get your money back &mdash; no questions asked. We're confident enough in the system to put our fee on the line.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">How much time do we need to invest?<span class="sign">+</span></button>
+                <div class="faq-a"><p>Minimal. We write the posts for you &mdash; you approve and publish them. The coaching is 2 sessions across the 30 days. Total commitment: roughly 2&ndash;3 hours per week.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">Is this only for LinkedIn?<span class="sign">+</span></button>
+                <div class="faq-a"><p>The sprint focuses on LinkedIn because that's where B2B decision-makers spend their time. We also run YouTube and multi-channel strategies &mdash; let's talk about what fits your business.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">What happens after 30 days?<span class="sign">+</span></button>
+                <div class="faq-a"><p>Two options: continue with our Complete Pipeline System ($10K/month) for ongoing content, lead management and sales coaching &mdash; or take the proven system and run it yourself. Either way, you leave with something that works.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="block footer-cta">
+    <div class="wrap">
+        <span class="eyebrow reveal" style="--accent:#5fd98c;justify-content:center;display:flex">Ready when you are</span>
+        <h2 class="reveal" style="margin-top:22px">Ready for predictable pipeline?</h2>
+        <p class="reveal">Book your free LinkedIn audit and we'll show you exactly what's working in your posts &mdash; and what's leaking pipeline.</p>
+        <div class="reveal"><button class="btn" onclick="bookCall()">Book your free audit</button></div>
+        <div class="footer-foot">DEMAND ACQUISITION &middot; CHICAGO, IL</div>
+    </div>
+</section>
+
+<script>
+    function bookCall(){
+        // Replace with your real booking link (Calendly, Cal.com, etc.)
+        window.location.href = 'https://calendly.com/your-link';
+    }
+
+    document.querySelectorAll('.faq-q').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            var open = btn.getAttribute('aria-expanded') === 'true';
+            var ans = btn.nextElementSibling;
+            btn.setAttribute('aria-expanded', String(!open));
+            ans.style.maxHeight = open ? null : ans.scrollHeight + 'px';
+        });
+    });
+
+    var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(function(el,i){
+        el.style.transitionDelay = (Math.min(i,6)*60) + 'ms';
+        io.observe(el);
+    });
+</script>
+
+</body>
+</html>
