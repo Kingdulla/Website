@@ -582,12 +582,30 @@
 Cal("init", "30min", {origin:"https://app.cal.eu"});
 Cal.config = Cal.config || {};
 Cal.config.forwardQueryParams = true;
-  Cal.ns["30min"]("inline", {
-    elementOrSelector:"#my-cal-inline-30min",
-    config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
-    calLink: "demandive/30min",
-  });
-  Cal.ns["30min"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#2fdd97"}},"hideEventTypeDetails":false,"layout":"week_view"});
+  // Render the calendar only when the booking section scrolls near, so the
+  // embed doesn't grab focus and auto-scroll the page to it on load.
+  (function(){
+    var el = document.getElementById("my-cal-inline-30min");
+    if(!el){ return; }
+    var done = false;
+    function render(){
+      if(done){ return; } done = true;
+      Cal.ns["30min"]("inline", {
+        elementOrSelector:"#my-cal-inline-30min",
+        config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
+        calLink: "demandive/30min",
+      });
+      Cal.ns["30min"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#2fdd97"}},"hideEventTypeDetails":false,"layout":"week_view"});
+    }
+    if("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(entries){
+        for(var i=0;i<entries.length;i++){ if(entries[i].isIntersecting){ render(); io.disconnect(); break; } }
+      }, {rootMargin:"300px"});
+      io.observe(el);
+    } else {
+      render();
+    }
+  })();
   </script>
 
 <!-- Wistia VSL player -->
