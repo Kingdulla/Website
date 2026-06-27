@@ -592,10 +592,10 @@ Cal.config.forwardQueryParams = true;
       if(done){ return; } done = true;
       Cal.ns["30min"]("inline", {
         elementOrSelector:"#my-cal-inline-30min",
-        config: {"layout":"week_view","useSlotsViewOnSmallScreen":"true"},
+        config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
         calLink: "demandive/30min",
       });
-      Cal.ns["30min"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#2fdd97"}},"hideEventTypeDetails":false,"layout":"week_view"});
+      Cal.ns["30min"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#2fdd97"}},"hideEventTypeDetails":false,"layout":"month_view"});
     }
     if("IntersectionObserver" in window){
       var io = new IntersectionObserver(function(entries){
